@@ -1,9 +1,12 @@
 const express = require('express');
+const usersRouter = require('./userRouter');
 
 const app = express();
-const port = 7700;
+const port = 7777;
 
 app.use(express.json());
+
+app.use(`/songs`, usersRouter);
 
 app.get('/', (req, res)=>
 {
@@ -14,4 +17,3 @@ app.listen(port, ()=>
 {
    console.log(`SERVER 실행됨 ${port}`); 
 });
-console.log('hello')

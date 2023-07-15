@@ -12,7 +12,7 @@ const pool = mysql.createPool
   queueLimit: 0
 });
 
-const getUsers = async ()=>
+const getSongs = async ()=>
 {
     const promisePool = pool.promise();
     const [rows] = await promisePool.query('select * from song;');
@@ -22,5 +22,5 @@ const getUsers = async ()=>
 
 module.exports = 
 {
-    getUsers
+    getSongs
 };

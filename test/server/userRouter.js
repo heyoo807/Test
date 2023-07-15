@@ -2,34 +2,37 @@ const express = require('express');
 const userDBC = require('./lib/db.js');
 const router = express.Router();
 
-router.get('/getUsers', async (req, res)=>
+router.get('/getSongs', async (req, res)=>
 {
-    let res_get_users = 
+    let res_get_songs = 
     {
         status_code : 500,
-        users : [] 
+        songs : [] 
     };
 
     try
     {
-        const rows = await userDBC.getUsers();
-        res_get_users.status_code = 200;
+        const rows = await userDBC.getSongs();
+        res_get_songs.status_code = 200;
         if(rows.length > 0)
         {
             rows.forEach((song)=>
             {
-                res_get_users.users.push
+                res_get_songs.songs.push
                 ({
-                    userId : user.userId,
-                    userPassword : user.userPassword,
-                    userName : user.userName,
-                    userSignUpDate : user.userSignUpDate
+                    songId : song.songId,
+                    title : song.title,
+                    singer : song.singer,
+                    img_src : song.img_src,
+                    mp3_src : song.mp3_src,
+                    lyrics : song.lyrics,
+                    genre : song.genre
                 });
             });
         }
         else
         {
-            console.log('사용자 없음');
+            console.log('곡 없음');
         }
     }
     catch(error)
@@ -43,13 +46,16 @@ router.get('/getUsers', async (req, res)=>
         //res.json(res_get_users);
         var result = '';
 
-        for(var i=0; i < res_get_users.users.length; i++)
+        for(var i=0; i < res_get_songs.songs.length; i++)
         {
-        result += res_get_users.users[i].userId;
-        result += res_get_users.users[i].userPassword;
-        result += res_get_users.users[i].userName;
-        result += res_get_users.users[i].userSignUpDate;
-        
+        result += res_get_songs.songs[i].songId;
+        result += res_get_songs.songs[i].title;
+        result += res_get_songs.songs[i].singer;
+        result += res_get_songs.songs[i].img_src;
+        result += res_get_songs.songs[i].mp3_src;
+        result += res_get_songs.songs[i].lyrics;
+        result += res_get_songs.songs[i].genre;
+
         result += "<br>";
         }
 
