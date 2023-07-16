@@ -1,4 +1,6 @@
 const express = require('express');
+
+
 const usersRouter = require('./userRouter');
 
 const app = express();
@@ -7,6 +9,21 @@ const port = 7777;
 app.use(express.json());
 
 app.use(`/songs`, usersRouter);
+
+
+
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
+module.exports = function(app) {
+ app.use(
+ '/api',
+ createProxyMiddleware({
+ target: 'http://localhost:3000',
+ changeOrigin: true,
+ }) );
+};
+
+
 
 app.get('/', (req, res)=>
 {

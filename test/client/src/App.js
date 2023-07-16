@@ -1,13 +1,17 @@
 import { useEffect } from "react";
 import "./App.css";
-import Axios from "axios";
+import axios from "axios";
 
 function App() {
-  useEffect(() => {
-    Axios.get("http://localhost:7777").then((res) =>
-      console.log(res.data)
-    );
-  }, []);
+ 
+  
+
+  axios.get('http://localhost:7777/songs/getSongs').then((Response)=>{
+      console.log('hello');
+  }).catch((Error)=>{
+      console.log(Error);
+  })
+
   return (
     <div className="App">
       <header className="App-header">
