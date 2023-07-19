@@ -29,3 +29,18 @@ react 에서 많이 사용되는 ui framework -> material UI
 nodejs express 사용-> api 역할 (데이터를 주고받는)
 
 package.json에서 데이터 주고받도록함
+
+# 8강
+Node.js Express에서 REST API 구축하기
+### 프록시 에러 -> 해결 
+
+# 9강
+react의 component library life cycle
+constructor() -> componentWillMount() -> render() -> componentDidMount()
+
+props or state -> shouldComponentUPdate() 
+
+### 로딩 구현 에러 (mui 관련) -> 미해결
+
+# 10강
+aws(아마존웹서비스)의 rds로 mysql구축하기 

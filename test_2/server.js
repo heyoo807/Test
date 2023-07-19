@@ -10,8 +10,8 @@ app.get('/api/customers', (req, res)=>{
     res.send([
         {
             'id' : 1,
-            'img' : '',
-            'name' : 'heyoo',
+            'img' : 'https://mblogthumb-phinf.pstatic.net/20140114_194/gma_spiker_1389630854115pKu65_JPEG/%C5%E4%C0%CC4%C1%FD_-_A_NIGHT_IN_SEOUL.jpg?type=w2',
+            'name' : 'heyoo807',
             'birthday' : '020807',
             'gender' : '여자',
             'job' : '대학생'

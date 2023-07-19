@@ -1,3 +1,13 @@
 .gray-background{
   background-color: darkgray;
 }
+
+.root{
+  width: 100%;
+  overflow-x: auto;
+  color: red;
+}
+
+.table{
+  min-width: 1080;
+}
