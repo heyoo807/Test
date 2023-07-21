@@ -2,38 +2,32 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const port = process.env.PORT || 5000
+const fs  = require('fs')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extendend: true}))
 
+
+const data = fs.readFileSync('./database.json')
+const conf = JSON.parse(data)
+const mysql = require('mysql2')
+
+const connection = mysql.createConnection({
+  host: conf.host,
+  user: conf.user,
+  password : conf.password,
+  port : conf.port,
+  database : conf.database
+}) 
+connection.connect()
+
 app.get('/api/customers', (req, res)=>{
-    res.send([
-        {
-            'id' : 1,
-            'img' : 'https://mblogthumb-phinf.pstatic.net/20140114_194/gma_spiker_1389630854115pKu65_JPEG/%C5%E4%C0%CC4%C1%FD_-_A_NIGHT_IN_SEOUL.jpg?type=w2',
-            'name' : 'heyoo807',
-            'birthday' : '020807',
-            'gender' : '여자',
-            'job' : '대학생'
-          },
-          {
-            'id' : 2,
-            'img' : '',
-            'name' : '김사과',
-            'birthday' : '020807',
-            'gender' : '여자',
-            'job' : '대학생'
-          },
-          {
-            'id' : 3,
-            'img' : '',
-            'name' : '반하나',
-            'birthday' : '020807',
-            'gender' : '여자',
-            'job' : '대학생'
-          }
-          
-    ])
+    connection.query(
+      "SELECT * FROM CUSTOMER",
+      (err, rows,fields)=>{
+        res.send(rows)
+      }
+    )
 })
 
 app.listen(port, ()=> console.log(`listening on port ${port}`))

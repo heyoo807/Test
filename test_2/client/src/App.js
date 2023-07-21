@@ -42,9 +42,10 @@ class App extends Component {
       .catch(err =>console.log(err))
   }
 
-  callApi =  async () =>{
+  callApi =  async () => {
     const response = await fetch('/api/customers')
     const body = await response.json()
+  
   return body  }
 
   // progress = () =>{
@@ -55,8 +56,8 @@ class App extends Component {
     // const {classes} = this.state
     return (
       <div >
-        <Paper className = 'root'> 
-        <Table className = 'table'>
+        <Paper> 
+        <Table>
         <TableHead>
           <TableRow>
             <TableCell>번호</TableCell>
@@ -73,13 +74,13 @@ class App extends Component {
               <Customer
                 key={c.id}
                 id={c.id}
-                img = {c.img}
+                image = {c.image}
                 name = {c.name}
                 birthday = {c.birthday}
                 gender = {c.gender}
                 job = {c.job}/>
             ) 
-          }) : " "
+          }) : ""
           // <TableRow>
           //   <TableCell colSpan = "6" align="center"><CircularProgress className = {classes.progress} variant = "determinante" value={this.state.completed}/></TableCell>
           // </TableRow>
