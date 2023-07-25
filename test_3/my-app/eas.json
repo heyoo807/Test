@@ -1,0 +1,17 @@
+{
+  "cli": {
+    "version": ">= 3.17.0"
+  },
+  "build": {
+    "preview": {
+      "ios": {
+        "simulator": true
+      }
+    },
+    "production": {}
+  },
+  "submit": {
+    "production": {}
+  }
+}
+

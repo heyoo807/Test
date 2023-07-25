@@ -1,6 +1,7 @@
 
 import './App.css';
 import Customer from './components/Customer';
+import CustomerAdd from './components/CustomerAdd';
 import React, {Component} from 'react';
 import { Paper } from '@mui/material';
 import Table from '@mui/material/Table'
@@ -88,6 +89,7 @@ class App extends Component {
         </TableBody>
         </Table>
         </Paper>
+        <CustomerAdd/>
 
       </div>
       
