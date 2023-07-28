@@ -7,6 +7,7 @@ import { Paper } from '@mui/material';
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableHead from '@mui/material/TableHead'
+import InputBase from '@mui/material/InputBase';
 import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
 import CircularProgress from '@mui/material/CircularProgress';
@@ -28,13 +29,28 @@ import withStyles from '@mui/material';
 // })
 
 
+
+
 class App extends Component {
 
 
-  state = {
-    customers: "",
-    // completed : 0
+  constructor(props){
+    super(props)
+    this.state = {
+      customers: ''
+    }
+
   }
+
+  stateRefresh = () => {
+    this.setState({
+      customers: "",
+      searchKeyword:""
+    })
+    this.callApi()
+      .then(res=> this.setState({customers: res}))
+      .catch(err =>console.log(err))
+    }
 
   componentDidMount() {
     // this.timer = setInterval(this.progress, 20) // 0.02초마다 progress함수 실행 
@@ -53,11 +69,31 @@ class App extends Component {
   //   const {completed} = this.state;
   //   this.setState({completed: completed >= 100 ? 0 : completed + 1})
   // }
+
+  handleValueChange = (e) => {
+    let nextState = {}
+    nextState[e.target.name] = e.target.value
+    this.setState(nextState)
+  }
   render(){
+    const filteredComponents = (data) => {
+      data = data.filter((c) => {
+        return c.name.indexOf(this.state.searchKeyword) > -1
+      })
+
+      return data.map((c)=>{
+        return <Customer stateRefresh={this.stateRefresh}
+          key={c.id} id={c.id} image={c.image} name={c.name} birthday = {c.birthday} gender = {c.gender} job = {c.job}/>
+      })
+    }
     // const {classes} = this.state
     return (
       <div >
         <Paper> 
+        <InputBase placeholder='검색하기'
+        name='searchKeyword'
+        value={this.state.searchKeyword}
+        onChange={this.handleValueChange}/>
         <Table>
         <TableHead>
           <TableRow>
@@ -67,29 +103,21 @@ class App extends Component {
             <TableCell>생년월일</TableCell>
             <TableCell>성별</TableCell>
             <TableCell>직업</TableCell>
+            <TableCell>설정</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-        { this.state.customers ? this.state.customers.map(c=>{ // map을 이용할때는 key라는 props를 사용해주어야 함. 
-            return (
-              <Customer
-                key={c.id}
-                id={c.id}
-                image = {c.image}
-                name = {c.name}
-                birthday = {c.birthday}
-                gender = {c.gender}
-                job = {c.job}/>
-            ) 
-          }) : ""
-          // <TableRow>
+        { this.state.customers ? filteredComponents(this.state.customers)
+           : ""}
+          {/* // <TableRow>
           //   <TableCell colSpan = "6" align="center"><CircularProgress className = {classes.progress} variant = "determinante" value={this.state.completed}/></TableCell>
           // </TableRow>
-  }
+   */}
         </TableBody>
         </Table>
         </Paper>
-        <CustomerAdd/>
+        <CustomerAdd stateRefresh={this.stateRefresh}/>
+        
 
       </div>
       
